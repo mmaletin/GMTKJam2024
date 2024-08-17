@@ -79,7 +79,7 @@ public class CatController : MonoBehaviour
         }
 
         _isMoving = true;      
-        transform.DOMove(transform.position + (Vector3)direction, moveTime).OnComplete(() =>
+        transform.DOMove(transform.position + (Vector3)direction, moveTime).SetLink(gameObject).OnComplete(() =>
         {
             if (_sheduledScaleAnimation)
             {
@@ -104,8 +104,8 @@ public class CatController : MonoBehaviour
 
         FMODUnity.RuntimeManager.StudioSystem.setParameterByName("music_switch", _isBig ? 0 : 1);
 
-        transform.DOScale(targetScale, scaleAnimationDuration);
-        transform.DOMove(targetPosition, scaleAnimationDuration).OnComplete(() =>
+        transform.DOScale(targetScale, scaleAnimationDuration).SetLink(gameObject);
+        transform.DOMove(targetPosition, scaleAnimationDuration).SetLink(gameObject).OnComplete(() =>
         {
             _isMoving = false;
         });

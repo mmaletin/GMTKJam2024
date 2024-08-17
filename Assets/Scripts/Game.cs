@@ -10,17 +10,22 @@ public class Game : MonoBehaviour
     public CameraFollow cameraFollow;
 
     [Scene] public int[] levels;
+    private int _currentLevelIndex = 0;
+    private Level _currentLevel;
 
     public void OnNewGameClicked()
     {
         loadscreen.gameObject.SetActive(true);
         titleScreen.SetActive(false);
 
-        StartCoroutine(LoadLevelAsync(levels[0]));
+        StartCoroutine(LoadLevelAsync(0));
     }
 
-    private IEnumerator LoadLevelAsync(int buildIndex)
+    private IEnumerator LoadLevelAsync(int levelIndex)
     {
+        _currentLevelIndex = levelIndex;
+        var buildIndex = levels[levelIndex];
+
         var asyncOperation = SceneManager.LoadSceneAsync(buildIndex, LoadSceneMode.Additive);
         while (!asyncOperation.isDone)
         {
@@ -33,7 +38,44 @@ public class Game : MonoBehaviour
         var catController = GetComponentOnScene<CatController>(levelScene);
         cameraFollow.target = catController.transform;
 
+        _currentLevel = GetComponentOnScene<Level>(levelScene);
+        _currentLevel.onCompleted += OnLevelCompleted;
+
         loadscreen.gameObject.SetActive(false);
+    }
+
+    private void OnLevelCompleted()
+    {
+        _currentLevel.onCompleted -= OnLevelCompleted;
+        StartCoroutine(NextLevelCoroutine());
+    }
+
+    private IEnumerator NextLevelCoroutine()
+    {
+        loadscreen.gameObject.SetActive(true);
+
+        yield return UnloadLevel(_currentLevelIndex);
+
+        if (++_currentLevelIndex <= levels.Length - 1)
+        {
+            yield return LoadLevelAsync(_currentLevelIndex);
+        }
+        else
+        {
+            Debug.LogWarning("TODO: Game over, roll credits");
+            titleScreen.SetActive(true);
+            loadscreen.gameObject.SetActive(false);
+        }
+    }
+
+    private IEnumerator UnloadLevel(int levelIndex)
+    {
+        var buildIndex = levels[levelIndex];
+        var asyncOperation = SceneManager.UnloadSceneAsync(buildIndex);
+        while (!asyncOperation.isDone)
+        {
+            yield return null;
+        }
     }
 
     public T GetComponentOnScene<T>(Scene scene)
