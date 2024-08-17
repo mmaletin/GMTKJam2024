@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/TechnicalTestLevel0.unity
     guid: 01ec591331ff43c42a2687f3bae56dc6
   - enabled: 1
-    path: Assets/Scenes/LevelTemplate.unity
+    path: Assets/Scenes/LevelMax1.unity
     guid: 979b0a484c641024680f5892506d837a
   m_configObjects: {}
