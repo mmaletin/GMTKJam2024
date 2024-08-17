@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class CatController : MonoBehaviour
 {
@@ -39,8 +40,6 @@ public class CatController : MonoBehaviour
 
     private void MoveInDirection(Vector2 direction)
     {
-        //var hit = Physics2D.Raycast(transform.position, direction, 1000, 1 << 7);
-
         body.Cast(direction, _contactFilter, _hits, float.MaxValue);
 
         //if (_hits.Count > 0)
@@ -54,18 +53,29 @@ public class CatController : MonoBehaviour
 
         var closest = _hits.Select(hit => hit.distance).Min();
 
-        Debug.Log($"Closest = {closest}");
-
         if (closest < 1.01f)
-            return; // Can't move
+        {
+            using var rocksPoolObject = ListPool<Rock>.Get(out var rocks);
 
-        //var finalPosition = body.position + direction;
-        //finalPosition = new Vector2(Mathf.Round(finalPosition.x), Mathf.Round(finalPosition.y));
+            foreach (var hit in _hits)
+            {
+                if (hit.distance > 1.01f)
+                    continue;
 
-        //Debug.Log($"Body position at the start: {body.position}");
-        _isMoving = true;
-        //body.DOMove(new Vector2(transform.position.x, transform.position.y) + direction, moveTime).SetEase(Ease.Linear).OnComplete(() =>        
-        //body.DOMove(body.position + direction, moveTime).SetEase(Ease.Linear).OnComplete(() =>        
+                var rock = hit.transform.GetComponent<Rock>();
+                if (rock == null || !rock.CanBeMoved(_isBig ? CatSize.Big : CatSize.Small, direction))
+                    return;
+
+                rocks.Add(rock);
+            }
+
+            foreach (var rock in rocks)
+            {
+                rock.Move(direction, moveTime);
+            }
+        }
+
+        _isMoving = true;      
         transform.DOMove(transform.position + (Vector3)direction, moveTime).OnComplete(() =>
         {
             if (_sheduledScaleAnimation)
@@ -76,10 +86,6 @@ public class CatController : MonoBehaviour
             {
                 _isMoving = false;
             }
-
-            //body.MovePosition(finalPosition);
-            //if (IsHoldingButton(direction))
-            //    MoveInDirection(direction);
         });
     }
 
