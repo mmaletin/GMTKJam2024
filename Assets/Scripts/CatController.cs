@@ -5,12 +5,27 @@ using UnityEngine;
 
 public class CatController : MonoBehaviour
 {
+    public float scaleAnimationDuration = 0.5f;
     public float moveTime = 0.2f;
     public Rigidbody2D body;
 
+    private bool _isBig = true;
     private bool _isMoving;
 
+    private bool _sheduledScaleAnimation;
+    private Vector3 _sizeTogglerPosition;
+
     private List<RaycastHit2D> _hits = new();
+
+    private ContactFilter2D _contactFilter;
+
+    private void Awake()
+    {
+        _contactFilter = new ContactFilter2D()
+        {
+            useTriggers = false
+        };
+    }
 
     void Update()
     {
@@ -26,16 +41,16 @@ public class CatController : MonoBehaviour
     {
         //var hit = Physics2D.Raycast(transform.position, direction, 1000, 1 << 7);
 
-        body.Cast(direction, _hits);
+        body.Cast(direction, _contactFilter, _hits, float.MaxValue);
 
-        if (_hits.Count > 0)
-        {
-            int i = 0;
-            foreach (var h in _hits)
-            {
-                Debug.Log($"Hit {i++} distance = {h.distance}");
-            }
-        }
+        //if (_hits.Count > 0)
+        //{
+        //    int i = 0;
+        //    foreach (var h in _hits)
+        //    {
+        //        Debug.Log($"Hit {i++} distance = {h.distance}");
+        //    }
+        //}
 
         var closest = _hits.Select(hit => hit.distance).Min();
 
@@ -53,10 +68,33 @@ public class CatController : MonoBehaviour
         //body.DOMove(body.position + direction, moveTime).SetEase(Ease.Linear).OnComplete(() =>        
         transform.DOMove(transform.position + (Vector3)direction, moveTime).OnComplete(() =>
         {
+            if (_sheduledScaleAnimation)
+            {
+                ToggleScaleAnimation();
+            }
+            else
+            {
+                _isMoving = false;
+            }
+
             //body.MovePosition(finalPosition);
-            _isMoving = false;
             //if (IsHoldingButton(direction))
             //    MoveInDirection(direction);
+        });
+    }
+
+    private void ToggleScaleAnimation()
+    {
+        _sheduledScaleAnimation = false;
+
+        _isBig = !_isBig;
+        var targetScale = _isBig ? Vector3.one * 2 : Vector3.one;
+        var targetPosition = _isBig ? _sizeTogglerPosition : _sizeTogglerPosition - new Vector3(-0.5f, -0.5f, 0);
+
+        transform.DOScale(targetScale, scaleAnimationDuration);
+        transform.DOMove(targetPosition, scaleAnimationDuration).OnComplete(() =>
+        {
+            _isMoving = false;
         });
     }
 
@@ -82,5 +120,11 @@ public class CatController : MonoBehaviour
         if (v != 0) return new Vector2(0, Mathf.Sign(v));
 
         return Vector2.zero;
+    }
+
+    public void ToggleSize(Vector3 position)
+    {
+        _sheduledScaleAnimation = true;
+        _sizeTogglerPosition = position;
     }
 }
