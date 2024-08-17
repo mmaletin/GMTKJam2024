@@ -102,6 +102,8 @@ public class CatController : MonoBehaviour
         var targetScale = _isBig ? Vector3.one * 2 : Vector3.one;
         var targetPosition = _isBig ? _sizeTogglerPosition : _sizeTogglerPosition - new Vector3(-0.5f, -0.5f, 0);
 
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("music_switch", _isBig ? 0 : 1);
+
         transform.DOScale(targetScale, scaleAnimationDuration);
         transform.DOMove(targetPosition, scaleAnimationDuration).OnComplete(() =>
         {
