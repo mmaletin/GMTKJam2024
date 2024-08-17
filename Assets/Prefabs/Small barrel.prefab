@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4957670261242963766}
   - component: {fileID: 2941127009101432175}
   m_Layer: 0
-  m_Name: Small rock
+  m_Name: Small barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2047665446, guid: eeee0afdf9c5c13498a5cb33b0dc1ccf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c428a19cc67093b45891c9dc94170c24, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

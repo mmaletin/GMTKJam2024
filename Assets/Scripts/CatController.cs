@@ -64,7 +64,7 @@ public class CatController : MonoBehaviour
         //    }
         //}
 
-        var closest = _hits.Select(hit => hit.distance).Min();
+        var closest = _hits.Count > 0 ? _hits.Select(hit => hit.distance).Min() : float.MaxValue;
 
         if (closest < 1.01f)
         {
