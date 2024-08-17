@@ -1087,7 +1087,7 @@ GameObject:
   - component: {fileID: 587536407}
   - component: {fileID: 587536408}
   m_Layer: 0
-  m_Name: music_test
+  m_Name: main_music
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1123,11 +1123,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 647784038
-      Data2: 1150140323
-      Data3: 491153568
-      Data4: 1236714487
-    Path: event:/test_music
+      Data1: -1698468393
+      Data2: 1210449737
+      Data3: 337981845
+      Data4: 2114565727
+    Path: event:/MUSIC/main_track
   Event: 
   PlayEvent: 1
   StopEvent: 2
