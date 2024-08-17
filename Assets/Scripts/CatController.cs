@@ -96,6 +96,7 @@ public class CatController : MonoBehaviour
     {
         _sheduledScaleAnimation = false;
 
+        // TODO Use cat size
         _isBig = !_isBig;
         spriteRenderer.sprite = _isBig ? sprites[1] : sprites[0];
         var targetScale = _isBig ? Vector3.one * 2 : Vector3.one;
