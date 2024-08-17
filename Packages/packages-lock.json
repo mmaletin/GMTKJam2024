@@ -1,5 +1,26 @@
 {
   "dependencies": {
+    "com.chenpipi.project-pin-board": {
+      "version": "https://github.com/ichenpipi/unity-project-pin-board.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "2ecf5f15398dcd085ebf8cb1131b973da3277559"
+    },
+    "com.dbrizov.naughtyattributes": {
+      "version": "https://github.com/dbrizov/NaughtyAttributes.git#upm",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "8a8fa5a9659a6d63f196391c71e06c4286c8acd7"
+    },
+    "com.mackysoft.serializereference-extensions": {
+      "version": "https://github.com/mackysoft/Unity-SerializeReferenceExtensions.git?path=Assets/MackySoft/MackySoft.SerializeReferenceExtensions",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "b7d76fb0c5133adc87e09c1d7aea87882a1d812a"
+    },
     "com.unity.2d.animation": {
       "version": "9.1.0",
       "depth": 1,
@@ -227,6 +248,13 @@
         "com.unity.modules.jsonserialize": "1.0.0"
       },
       "url": "https://packages.unity.com"
+    },
+    "com.yasirkula.assetusagedetector": {
+      "version": "https://github.com/yasirkula/UnityAssetUsageDetector.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "9fddcab6fafcc8b4795b42777c27bbe7df08fe81"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
