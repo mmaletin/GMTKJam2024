@@ -26,9 +26,19 @@ public class CatController : MonoBehaviour
 
     private ContactFilter2D _contactFilter;
 
+    private bool _hasIgnoredDirection;
+    private Vector2 _ignoredDirection;
+
     private void Awake()
     {
         UpdateContactFilter();
+
+        var direction = GetDirection();
+        if (direction != Vector2.zero)
+        {
+            _hasIgnoredDirection = true;
+            _ignoredDirection = direction;
+        }
     }
 
     private void UpdateContactFilter()
@@ -43,6 +53,19 @@ public class CatController : MonoBehaviour
 
     void Update()
     {
+        if (_hasIgnoredDirection)
+        {
+            var direction = GetDirection();
+            if (direction == _ignoredDirection)
+            {
+                return;
+            }
+            else
+            {
+                _hasIgnoredDirection = false;
+            }
+        }
+
         if (!_isMoving)
         {
             var direction = GetDirection();
