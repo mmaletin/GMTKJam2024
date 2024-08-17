@@ -9,6 +9,9 @@ public class CatController : MonoBehaviour
     public float scaleAnimationDuration = 0.5f;
     public float moveTime = 0.2f;
     public Rigidbody2D body;
+    public SpriteRenderer spriteRenderer;
+
+    public Sprite[] sprites;
 
     private bool _isBig = true;
     private bool _isMoving;
@@ -94,6 +97,7 @@ public class CatController : MonoBehaviour
         _sheduledScaleAnimation = false;
 
         _isBig = !_isBig;
+        spriteRenderer.sprite = _isBig ? sprites[1] : sprites[0];
         var targetScale = _isBig ? Vector3.one * 2 : Vector3.one;
         var targetPosition = _isBig ? _sizeTogglerPosition : _sizeTogglerPosition - new Vector3(-0.5f, -0.5f, 0);
 

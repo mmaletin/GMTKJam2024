@@ -626,6 +626,10 @@ MonoBehaviour:
   scaleAnimationDuration: 0.5
   moveTime: 0.2
   body: {fileID: 439134992}
+  spriteRenderer: {fileID: 439134990}
+  sprites:
+  - {fileID: 4184818472903458204, guid: 5442d49722fed284fa67579808b47ca9, type: 3}
+  - {fileID: 7926084165202192837, guid: 5442d49722fed284fa67579808b47ca9, type: 3}
 --- !u!212 &439134990
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -667,7 +671,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -2036896595, guid: eeee0afdf9c5c13498a5cb33b0dc1ccf, type: 3}
+  m_Sprite: {fileID: 7926084165202192837, guid: 5442d49722fed284fa67579808b47ca9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
