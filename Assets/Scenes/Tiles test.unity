@@ -1334,7 +1334,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 790664345}
-  - component: {fileID: 790664344}
+  - component: {fileID: 790664346}
   m_Layer: 0
   m_Name: Audio
   m_TagString: Untagged
@@ -1342,25 +1342,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &790664344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 790664343}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9468c5f457ace64f8d4df6d642b107f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LoadEvent: 1
-  UnloadEvent: 2
-  Banks:
-  - Music
-  - SFX
-  CollisionTag: 
-  PreloadSamples: 0
 --- !u!4 &790664345
 Transform:
   m_ObjectHideFlags: 0
@@ -1377,6 +1358,31 @@ Transform:
   - {fileID: 587536407}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &790664346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790664343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43366ad5193aa4e4aab9bb6df6e1b323, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Banks:
+  - Music
+  - SFX
+  amb: {fileID: 0}
+  aaaahh: {fileID: 0}
+  loading: {fileID: 0}
+  logo: {fileID: 0}
+  logoText: {fileID: 0}
+  introPanel: {fileID: 0}
+  fadeGameLogoTime: 0
+  fadeDelayStartLogo: 0
+  fadeDelayStopLogo: 0
+  titleScreenDelay: 0
 --- !u!1 &886178533
 GameObject:
   m_ObjectHideFlags: 0
