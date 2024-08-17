@@ -13,6 +13,9 @@ public class CatController : MonoBehaviour
 
     public Sprite[] sprites;
 
+    public LayerMask smallCatCollision;
+    public LayerMask bigCatCollision;
+
     private bool _isBig = true;
     private bool _isMoving;
 
@@ -25,9 +28,16 @@ public class CatController : MonoBehaviour
 
     private void Awake()
     {
+        UpdateContactFilter();
+    }
+
+    private void UpdateContactFilter()
+    {
         _contactFilter = new ContactFilter2D()
         {
-            useTriggers = false
+            useTriggers = false,
+            useLayerMask = true,
+            layerMask = _isBig ? bigCatCollision : smallCatCollision
         };
     }
 
@@ -101,6 +111,8 @@ public class CatController : MonoBehaviour
         spriteRenderer.sprite = _isBig ? sprites[1] : sprites[0];
         var targetScale = _isBig ? Vector3.one * 2 : Vector3.one;
         var targetPosition = _isBig ? _sizeTogglerPosition : _sizeTogglerPosition - new Vector3(-0.5f, -0.5f, 0);
+
+        UpdateContactFilter();
 
         FMODUnity.RuntimeManager.StudioSystem.setParameterByName("music_switch", _isBig ? 0 : 1);
 

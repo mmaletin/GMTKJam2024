@@ -8,6 +8,8 @@ public class Rock : MonoBehaviour
     public CatSize minimumSize;
     public Rigidbody2D body;
 
+    public LayerMask collision;
+
     private List<RaycastHit2D> _hits = new();
 
     private ContactFilter2D _contactFilter;
@@ -16,7 +18,9 @@ public class Rock : MonoBehaviour
     {
         _contactFilter = new ContactFilter2D()
         {
-            useTriggers = false
+            useTriggers = false,
+            useLayerMask = true,
+            layerMask = collision
         };
     }
 
