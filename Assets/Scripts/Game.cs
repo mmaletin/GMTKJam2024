@@ -7,6 +7,7 @@ public class Game : MonoBehaviour
 {
     public CanvasGroup loadscreen;
     public GameObject titleScreen;
+    public GameObject gameUI;
     public CameraFollow cameraFollow;
 
     [Scene] public int[] levels;
@@ -32,8 +33,6 @@ public class Game : MonoBehaviour
             yield return null;
         }
 
-        // TODO Consider creating level class with all references and oncompleted event
-
         var levelScene = SceneManager.GetSceneByBuildIndex(buildIndex);
         var catController = GetComponentOnScene<CatController>(levelScene);
         cameraFollow.target = catController.transform;
@@ -41,6 +40,7 @@ public class Game : MonoBehaviour
         _currentLevel = GetComponentOnScene<Level>(levelScene);
         _currentLevel.onCompleted += OnLevelCompleted;
 
+        gameUI.gameObject.SetActive(true);
         loadscreen.gameObject.SetActive(false);
     }
 
@@ -64,6 +64,7 @@ public class Game : MonoBehaviour
         {
             Debug.LogWarning("TODO: Game over, roll credits");
             titleScreen.SetActive(true);
+            gameUI.gameObject.SetActive(false);
             loadscreen.gameObject.SetActive(false);
         }
     }
@@ -88,5 +89,18 @@ public class Game : MonoBehaviour
         }
 
         return default;
+    }
+
+    public void Restart()
+    {
+        StartCoroutine(RestartCoroutine());
+    }
+
+    private IEnumerator RestartCoroutine()
+    {
+        loadscreen.gameObject.SetActive(true);
+
+        yield return UnloadLevel(_currentLevelIndex);
+        yield return LoadLevelAsync(_currentLevelIndex);
     }
 }
