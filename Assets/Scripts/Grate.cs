@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using FMODUnity;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Grate : MonoBehaviour
@@ -13,6 +14,8 @@ public class Grate : MonoBehaviour
 
     private HashSet<Rigidbody2D> _pressingRigidbodies = new();
     private bool _buttonState;
+
+    public StudioEventEmitter grate_sound;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -38,6 +41,7 @@ public class Grate : MonoBehaviour
 
         spriteRenderer.sprite = isDown ? downSprite : upSprite;
         blockingRigidbody.gameObject.SetActive(!isDown);
+        grate_sound.Play();
     }
 
     public void SetButtonState(bool value)
