@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelMax1.unity
     guid: 979b0a484c641024680f5892506d837a
+  - enabled: 1
+    path: Assets/Scenes/MVP Levels/MVP_Level_1.unity
+    guid: 191dd5cb9dd04ba448e1f94468f3c010
+  - enabled: 1
+    path: Assets/Scenes/MVP Levels/MVP_Level_2.unity
+    guid: 18a1ce6e712f1274d87bb222b1e81709
   m_configObjects: {}
