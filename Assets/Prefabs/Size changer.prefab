@@ -143,3 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a76ea45030e4a04f8dcdecaa5912de1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sizeChangerType: 0
+  spriteRenderer: {fileID: 1469166472930121021}
+  normalSprite: {fileID: 21300000, guid: 525dbf805ee4a4742810ea8eb0f3c8f2, type: 3}
+  pressedSprite: {fileID: 21300000, guid: 2bba0827e0a595a40b3b1b32f1b17666, type: 3}

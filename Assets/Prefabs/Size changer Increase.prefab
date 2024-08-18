@@ -57,6 +57,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8505310034224258472, guid: eece963b41f83514099098690b15b224, type: 3}
+      propertyPath: normalSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a2e7eb006e566f841bcb806509a618d7, type: 3}
+    - target: {fileID: 8505310034224258472, guid: eece963b41f83514099098690b15b224, type: 3}
+      propertyPath: pressedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d8aefd62314c53c4b9e25fded1f44ae6, type: 3}
+    - target: {fileID: 8505310034224258472, guid: eece963b41f83514099098690b15b224, type: 3}
       propertyPath: sizeChangerType
       value: 1
       objectReference: {fileID: 0}
