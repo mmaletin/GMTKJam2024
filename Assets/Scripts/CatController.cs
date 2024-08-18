@@ -133,7 +133,9 @@ public class CatController : MonoBehaviour, IObjectWithSize
             }
         }
 
-        _isMoving = true;      
+        _isMoving = true;
+        spriteRenderer.transform.DOScaleY(1.1f, moveTime * 0.5f).SetLink(spriteRenderer.gameObject).SetEase(Ease.InOutQuad);
+        spriteRenderer.transform.DOScaleY(1, moveTime * 0.5f).SetLink(spriteRenderer.gameObject).SetEase(Ease.InOutQuad).SetDelay(moveTime * 0.5f);
         transform.DOMove(transform.position + (Vector3)direction, moveTime).SetLink(gameObject).OnComplete(() =>
         {
             if (_sheduledScaleAnimation)
@@ -180,19 +182,6 @@ public class CatController : MonoBehaviour, IObjectWithSize
     private void UpdateMusic()
     {
         RuntimeManager.StudioSystem.setParameterByName("music_switch", isBig ? 0 : 1);
-    }
-
-    private bool IsHoldingButton(Vector2 direction)
-    {
-        var h = Input.GetAxisRaw("Horizontal");
-        var v = Input.GetAxisRaw("Vertical");
-
-        if (direction.x > 0 && h > 0) return true;
-        if (direction.x < 0 && h < 0) return true;
-        if (direction.y > 0 && v > 0) return true;
-        if (direction.y < 0 && v < 0) return true;
-
-        return false;
     }
 
     private Vector2 GetDirection()
