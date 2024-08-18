@@ -22,6 +22,7 @@ public class Grate : MonoBehaviour
     private void Start()
     {
         _previousIsDown = inverted;
+        UpdateState(true);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -42,7 +43,7 @@ public class Grate : MonoBehaviour
         UpdateState();
     }
 
-    private void UpdateState()
+    private void UpdateState(bool skipSound = false)
     {
         var isDown = _pressingRigidbodies.Count > 0 || (inverted ? !_buttonState : _buttonState);
 
@@ -52,7 +53,8 @@ public class Grate : MonoBehaviour
         if(_previousIsDown != isDown)
         {
             _previousIsDown = isDown;
-            grate_sound.Play();
+            if (!skipSound)
+                grate_sound.Play();
         }
     }
 
