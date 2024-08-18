@@ -2026,7 +2026,7 @@ MonoBehaviour:
   cameraFollow: {fileID: 519420035}
   continueButton: {fileID: 1471224582}
   quitButton: {fileID: 1302973474}
-  levels: 060000000100000002000000
+  levels: 06000000070000000100000002000000
 --- !u!4 &1201823321
 Transform:
   m_ObjectHideFlags: 0
