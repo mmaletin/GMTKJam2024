@@ -1,4 +1,5 @@
 using DG.Tweening;
+using FMODUnity;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -30,6 +31,9 @@ public class CatController : MonoBehaviour, IObjectWithSize
     private Vector2 _ignoredDirection;
 
     public ObjectSize Size => _isBig ? ObjectSize.Big : ObjectSize.Small;
+
+    public StudioEventEmitter shrink;
+    public StudioEventEmitter stretch;
 
     private void Awake()
     {
@@ -139,7 +143,16 @@ public class CatController : MonoBehaviour, IObjectWithSize
 
         UpdateContactFilter();
 
-        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("music_switch", _isBig ? 0 : 1);
+        if (_isBig)
+        {
+            stretch.Play();
+        }
+        else
+        {
+            shrink.Play();
+        }
+
+        RuntimeManager.StudioSystem.setParameterByName("music_switch", _isBig ? 0 : 1);
 
         transform.DOScale(targetScale, scaleAnimationDuration).SetLink(gameObject);
         transform.DOMove(targetPosition, scaleAnimationDuration).SetLink(gameObject).OnComplete(() =>
