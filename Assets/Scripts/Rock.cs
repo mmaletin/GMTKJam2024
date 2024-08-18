@@ -1,4 +1,5 @@
 using DG.Tweening;
+using FMODUnity;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -16,6 +17,8 @@ public class Rock : MonoBehaviour, IObjectWithSize
 
     // Technically not the same thing, but whatever
     public ObjectSize Size => minimumSize;
+
+    public StudioEventEmitter move_sound;
 
     private void Awake()
     {
@@ -41,5 +44,6 @@ public class Rock : MonoBehaviour, IObjectWithSize
     public void Move(Vector2 direction, float moveTime)
     {
         transform.DOMove(transform.position + (Vector3)direction, moveTime).SetLink(gameObject);
+        move_sound.Play();
     }
 }
