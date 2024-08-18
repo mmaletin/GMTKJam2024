@@ -1,4 +1,5 @@
 
+using FMODUnity;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ public class BreakableDoor : MonoBehaviour
 
     [SortingLayer] public int brokenSortingLayer;
 
+    public StudioEventEmitter break_sound;
+
     public ObjectSize requiredCatSize = ObjectSize.Big;
 
     public void Smash()
@@ -20,6 +23,7 @@ public class BreakableDoor : MonoBehaviour
         {
             spriteRenderers[i].sprite = brokenSprites[i];
             spriteRenderers[i].sortingLayerID = brokenSortingLayer;
+            break_sound.Play();
         }
     }
 }
