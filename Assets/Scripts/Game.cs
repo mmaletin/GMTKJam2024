@@ -33,8 +33,6 @@ public class Game : MonoBehaviour
             yield return null;
         }
 
-        // TODO Consider creating level class with all references and oncompleted event
-
         var levelScene = SceneManager.GetSceneByBuildIndex(buildIndex);
         var catController = GetComponentOnScene<CatController>(levelScene);
         cameraFollow.target = catController.transform;
