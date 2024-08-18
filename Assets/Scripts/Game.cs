@@ -5,14 +5,38 @@ using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
+    public const string HighestCompletedLevelPrefsKey = "ktb_highest_completed_level";
+    public const string LastCompletedLevelPrefsKey = "ktb_last_completed_level";
+    public const string SoundPrefsKey = "ktb_sound";
+
     public CanvasGroup loadscreen;
     public GameObject titleScreen;
     public GameObject gameUI;
     public CameraFollow cameraFollow;
 
+    public GameObject continueButton;
+    public GameObject quitButton;
+
     [Scene] public int[] levels;
     private int _currentLevelIndex = 0;
     private Level _currentLevel;
+
+    private int _lastCompletedLevel;
+
+    private void Start()
+    {
+        UpdateContinueButton();
+
+#if UNITY_WEBGL
+        quitButton.SetActive(false);
+#endif
+    }
+
+    private void UpdateContinueButton()
+    {
+        _lastCompletedLevel = PlayerPrefs.GetInt(LastCompletedLevelPrefsKey, -1);
+        continueButton.SetActive(_lastCompletedLevel >= 0 && _lastCompletedLevel < levels.Length - 1);
+    }
 
     public void OnNewGameClicked()
     {
@@ -20,6 +44,14 @@ public class Game : MonoBehaviour
         titleScreen.SetActive(false);
 
         StartCoroutine(LoadLevelAsync(0));
+    }
+
+    public void OnContinueClicked()
+    {
+        loadscreen.gameObject.SetActive(true);
+        titleScreen.SetActive(false);
+
+        StartCoroutine(LoadLevelAsync(_lastCompletedLevel + 1));
     }
 
     private IEnumerator LoadLevelAsync(int levelIndex)
@@ -47,6 +79,15 @@ public class Game : MonoBehaviour
     private void OnLevelCompleted()
     {
         _currentLevel.onCompleted -= OnLevelCompleted;
+
+        _lastCompletedLevel = _currentLevelIndex;
+        PlayerPrefs.SetInt(HighestCompletedLevelPrefsKey, _lastCompletedLevel);
+        var highestCompletedLevel = PlayerPrefs.GetInt(HighestCompletedLevelPrefsKey, -1);
+        if (_lastCompletedLevel > highestCompletedLevel)
+            PlayerPrefs.SetInt(HighestCompletedLevelPrefsKey, _lastCompletedLevel);
+
+        UpdateContinueButton();
+
         StartCoroutine(NextLevelCoroutine());
     }
 
@@ -102,5 +143,16 @@ public class Game : MonoBehaviour
 
         yield return UnloadLevel(_currentLevelIndex);
         yield return LoadLevelAsync(_currentLevelIndex);
+    }
+
+    public void Quit()
+    {
+#if !UNITY_WEBGL
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+#endif
     }
 }
