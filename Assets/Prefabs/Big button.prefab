@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &8697513233630148882
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 111136455814922750, guid: 24ff3045e6295b947b2528b607fa9919, type: 3}
+      propertyPath: m_Size.x
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 111136455814922750, guid: 24ff3045e6295b947b2528b607fa9919, type: 3}
+      propertyPath: m_Size.y
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 111136455814922750, guid: 24ff3045e6295b947b2528b607fa9919, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 111136455814922750, guid: 24ff3045e6295b947b2528b607fa9919, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3949190430684153772, guid: 24ff3045e6295b947b2528b607fa9919, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 027afb3bd489f1d4b98234451661901d, type: 3}
+    - target: {fileID: 5564344767677907225, guid: 24ff3045e6295b947b2528b607fa9919, type: 3}
+      propertyPath: minimumSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5564344767677907225, guid: 24ff3045e6295b947b2528b607fa9919, type: 3}
+      propertyPath: normalSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 027afb3bd489f1d4b98234451661901d, type: 3}
+    - target: {fileID: 5564344767677907225, guid: 24ff3045e6295b947b2528b607fa9919, type: 3}
+      propertyPath: pressedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ad6a16d504ed8a54094f1f13e3f40985, type: 3}
+    - target: {fileID: 5868179967422863467, guid: 24ff3045e6295b947b2528b607fa9919, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5868179967422863467, guid: 24ff3045e6295b947b2528b607fa9919, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5868179967422863467, guid: 24ff3045e6295b947b2528b607fa9919, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5868179967422863467, guid: 24ff3045e6295b947b2528b607fa9919, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5868179967422863467, guid: 24ff3045e6295b947b2528b607fa9919, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5868179967422863467, guid: 24ff3045e6295b947b2528b607fa9919, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5868179967422863467, guid: 24ff3045e6295b947b2528b607fa9919, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5868179967422863467, guid: 24ff3045e6295b947b2528b607fa9919, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5868179967422863467, guid: 24ff3045e6295b947b2528b607fa9919, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5868179967422863467, guid: 24ff3045e6295b947b2528b607fa9919, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6016855444483969056, guid: 24ff3045e6295b947b2528b607fa9919, type: 3}
+      propertyPath: m_Name
+      value: Big button
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 24ff3045e6295b947b2528b607fa9919, type: 3}

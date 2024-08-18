@@ -1,5 +1,5 @@
 ﻿
-public enum CatSize
+public enum ObjectSize
 {
     Small,
     Big
