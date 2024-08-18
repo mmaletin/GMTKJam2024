@@ -17,12 +17,19 @@ public class Grate : MonoBehaviour
 
     public StudioEventEmitter grate_sound;
 
+    private bool _previousIsDown;
+
+    private void Start()
+    {
+        _previousIsDown = inverted;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.attachedRigidbody == blockingRigidbody)
             return;
 
-        _pressingRigidbodies.Add(collision.attachedRigidbody);
+        _pressingRigidbodies.Add(collision.attachedRigidbody);        
         UpdateState();
     }
 
@@ -41,7 +48,12 @@ public class Grate : MonoBehaviour
 
         spriteRenderer.sprite = isDown ? downSprite : upSprite;
         blockingRigidbody.gameObject.SetActive(!isDown);
-        grate_sound.Play();
+        
+        if(_previousIsDown != isDown)
+        {
+            _previousIsDown = isDown;
+            grate_sound.Play();
+        }
     }
 
     public void SetButtonState(bool value)
