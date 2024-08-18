@@ -31,7 +31,7 @@ public class Rock : MonoBehaviour
 
         body.Cast(direction, _contactFilter, _hits, float.MaxValue);
 
-        var closest = _hits.Select(hit => hit.distance).Min();
+        var closest = _hits.Count > 0 ? _hits.Select(hit => hit.distance).Min() : float.MaxValue;
         return closest > 1.01f;
     }
 

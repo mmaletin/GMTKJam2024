@@ -183,6 +183,10 @@ PrefabInstance:
       propertyPath: onButtonStateChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 809551208}
+    - target: {fileID: 7784134362856678598, guid: 68d94f7817357514ca6e12121d62c7fa, type: 3}
+      propertyPath: level
+      value: 
+      objectReference: {fileID: 809551208}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3266,6 +3270,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5643602492672763603, guid: 68d94f7817357514ca6e12121d62c7fa, type: 3}
       propertyPath: onButtonStateChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 809551208}
+    - target: {fileID: 7784134362856678598, guid: 68d94f7817357514ca6e12121d62c7fa, type: 3}
+      propertyPath: level
       value: 
       objectReference: {fileID: 809551208}
     m_RemovedComponents: []
