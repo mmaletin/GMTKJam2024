@@ -175,4 +175,16 @@ public class CatController : MonoBehaviour
         _sheduledScaleAnimation = true;
         _sizeTogglerPosition = position;
     }
+
+    public void TryIncreasingSize(Vector3 position)
+    {
+        if (!_isBig)
+            ToggleSize(position);
+    }
+
+    public void TryDecreasingSize(Vector3 position)
+    {
+        if (_isBig)
+            ToggleSize(position);
+    }
 }
