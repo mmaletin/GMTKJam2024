@@ -13,7 +13,13 @@ public class CatController : MonoBehaviour, IObjectWithSize
     public Rigidbody2D body;
     public SpriteRenderer spriteRenderer;
 
-    public Sprite[] sprites;
+    public Sprite smallRightSprite;
+    public Sprite smallUpSprite;
+    public Sprite smallDownSprite;
+
+    public Sprite bigRightSprite;
+    public Sprite bigUpSprite;
+    public Sprite bigDownSprite;
 
     public LayerMask smallCatCollision;
     public LayerMask bigCatCollision;
@@ -30,6 +36,8 @@ public class CatController : MonoBehaviour, IObjectWithSize
 
     private bool _hasIgnoredDirection;
     private Vector2 _ignoredDirection;
+
+    private Vector2 _lastDirection;
 
     public ObjectSize Size => isBig ? ObjectSize.Big : ObjectSize.Small;
 
@@ -85,6 +93,9 @@ public class CatController : MonoBehaviour, IObjectWithSize
 
     private void MoveInDirection(Vector2 direction)
     {
+        _lastDirection = direction;
+        UpdateSprite();
+
         body.Cast(direction, _contactFilter, _hits, float.MaxValue);
 
         var closest = _hits.Count > 0 ? _hits.Select(hit => hit.distance).Min() : float.MaxValue;
@@ -142,7 +153,7 @@ public class CatController : MonoBehaviour, IObjectWithSize
 
         // TODO Use cat size
         isBig = !isBig;
-        spriteRenderer.sprite = isBig ? sprites[1] : sprites[0];
+        UpdateSprite();
         var targetScale = isBig ? Vector3.one * 2 : Vector3.one;
         var targetPosition = isBig ? _sizeTogglerPosition : _sizeTogglerPosition - new Vector3(-0.5f, -0.5f, 0);
 
@@ -211,5 +222,20 @@ public class CatController : MonoBehaviour, IObjectWithSize
     {
         if (isBig)
             ToggleSize(position);
+    }
+
+    private void UpdateSprite()
+    {
+        if (!isBig && (_lastDirection == Vector2.zero || _lastDirection == Vector2.down)) spriteRenderer.sprite = smallDownSprite;
+        if (!isBig && _lastDirection == Vector2.up) spriteRenderer.sprite = smallUpSprite;
+        if (!isBig && _lastDirection == Vector2.left) spriteRenderer.sprite = smallRightSprite;
+        if (!isBig && _lastDirection == Vector2.right) spriteRenderer.sprite = smallRightSprite;
+
+        if (isBig && (_lastDirection == Vector2.zero || _lastDirection == Vector2.down)) spriteRenderer.sprite = bigDownSprite;
+        if (isBig && _lastDirection == Vector2.up) spriteRenderer.sprite = bigUpSprite;
+        if (isBig && _lastDirection == Vector2.left) spriteRenderer.sprite = bigRightSprite;
+        if (isBig && _lastDirection == Vector2.right) spriteRenderer.sprite = bigRightSprite;
+
+        spriteRenderer.flipX = _lastDirection == Vector2.left;
     }
 }

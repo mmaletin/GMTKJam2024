@@ -53,18 +53,21 @@ MonoBehaviour:
   moveTime: 0.2
   body: {fileID: 2360443116775697900}
   spriteRenderer: {fileID: 6039152689084773746}
-  sprites:
-  - {fileID: 21300000, guid: 93606299b17c79f4b9bcb4f882371f00, type: 3}
-  - {fileID: 21300000, guid: 8ccce79fd688d1c4196f1efb36679c18, type: 3}
+  smallRightSprite: {fileID: 21300000, guid: 2320a133a4c091948b09b5ce81c45aef, type: 3}
+  smallUpSprite: {fileID: 21300000, guid: c4925f1cf7b1e294ca85998c4b058ad5, type: 3}
+  smallDownSprite: {fileID: 21300000, guid: 31ff3a4230705c84d91a71a855ec3c06, type: 3}
+  bigRightSprite: {fileID: 21300000, guid: 1e7583dbba63f4441bbda8c73b32fe29, type: 3}
+  bigUpSprite: {fileID: 21300000, guid: 48124bff1ebeb3e49be050c1ad3cf530, type: 3}
+  bigDownSprite: {fileID: 21300000, guid: 7bcc73a9eac060646b77dd0685326bd5, type: 3}
   smallCatCollision:
     serializedVersion: 2
     m_Bits: 4294967295
   bigCatCollision:
     serializedVersion: 2
     m_Bits: 1783
+  isBig: 1
   shrink: {fileID: 1373097422240036209}
   stretch: {fileID: 8050409456572801112}
-  isBig: 1
 --- !u!61 &2128857776896464588
 BoxCollider2D:
   m_ObjectHideFlags: 0
