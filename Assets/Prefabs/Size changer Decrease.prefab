@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 2be16e0c6aaa11642853aad0b45e51d1, type: 3}
+    - target: {fileID: 1469166472930121021, guid: eece963b41f83514099098690b15b224, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 495267761
+      objectReference: {fileID: 0}
     - target: {fileID: 2378547190879451366, guid: eece963b41f83514099098690b15b224, type: 3}
       propertyPath: m_Name
       value: Size changer Decrease
