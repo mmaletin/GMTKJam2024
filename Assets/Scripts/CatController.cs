@@ -2,6 +2,7 @@ using DG.Tweening;
 using FMODUnity;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -86,19 +87,21 @@ public class CatController : MonoBehaviour, IObjectWithSize
     {
         body.Cast(direction, _contactFilter, _hits, float.MaxValue);
 
-        //if (_hits.Count > 0)
-        //{
-        //    int i = 0;
-        //    foreach (var h in _hits)
-        //    {
-        //        Debug.Log($"Hit {i++} distance = {h.distance}");
-        //    }
-        //}
-
         var closest = _hits.Count > 0 ? _hits.Select(hit => hit.distance).Min() : float.MaxValue;
 
         if (closest < 1.01f)
         {
+            if (_hits.Where(hit => hit.distance < 1.01f).Count() == 1)
+            {
+                var door = _hits[0].transform.GetComponentInParent<BreakableDoor>();
+                if (door != null && Size >= door.requiredCatSize)
+                {
+                    door.Smash();
+                    MoveInDirection(direction);
+                    return;
+                }
+            }
+
             using var rocksPoolObject = ListPool<Rock>.Get(out var rocks);
 
             foreach (var hit in _hits)
