@@ -64,6 +64,7 @@ MonoBehaviour:
     m_Bits: 1783
   shrink: {fileID: 1373097422240036209}
   stretch: {fileID: 8050409456572801112}
+  isBig: 1
 --- !u!61 &2128857776896464588
 BoxCollider2D:
   m_ObjectHideFlags: 0

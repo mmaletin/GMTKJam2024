@@ -17,7 +17,7 @@ public class CatController : MonoBehaviour, IObjectWithSize
     public LayerMask smallCatCollision;
     public LayerMask bigCatCollision;
 
-    private bool _isBig = true;
+    public bool isBig;
     private bool _isMoving;
 
     private bool _sheduledScaleAnimation;
@@ -30,7 +30,7 @@ public class CatController : MonoBehaviour, IObjectWithSize
     private bool _hasIgnoredDirection;
     private Vector2 _ignoredDirection;
 
-    public ObjectSize Size => _isBig ? ObjectSize.Big : ObjectSize.Small;
+    public ObjectSize Size => isBig ? ObjectSize.Big : ObjectSize.Small;
 
     public StudioEventEmitter shrink;
     public StudioEventEmitter stretch;
@@ -53,7 +53,7 @@ public class CatController : MonoBehaviour, IObjectWithSize
         {
             useTriggers = false,
             useLayerMask = true,
-            layerMask = _isBig ? bigCatCollision : smallCatCollision
+            layerMask = isBig ? bigCatCollision : smallCatCollision
         };
     }
 
@@ -105,7 +105,7 @@ public class CatController : MonoBehaviour, IObjectWithSize
                     continue;
 
                 var rock = hit.transform.GetComponent<Rock>();
-                if (rock == null || !rock.CanBeMoved(_isBig ? ObjectSize.Big : ObjectSize.Small, direction))
+                if (rock == null || !rock.CanBeMoved(isBig ? ObjectSize.Big : ObjectSize.Small, direction))
                     return;
 
                 rocks.Add(rock);
@@ -136,10 +136,10 @@ public class CatController : MonoBehaviour, IObjectWithSize
         _sheduledScaleAnimation = false;
 
         // TODO Use cat size
-        _isBig = !_isBig;
-        spriteRenderer.sprite = _isBig ? sprites[1] : sprites[0];
-        var targetScale = _isBig ? Vector3.one * 2 : Vector3.one;
-        var targetPosition = _isBig ? _sizeTogglerPosition : _sizeTogglerPosition - new Vector3(-0.5f, -0.5f, 0);
+        isBig = !isBig;
+        spriteRenderer.sprite = isBig ? sprites[1] : sprites[0];
+        var targetScale = isBig ? Vector3.one * 2 : Vector3.one;
+        var targetPosition = isBig ? _sizeTogglerPosition : _sizeTogglerPosition - new Vector3(-0.5f, -0.5f, 0);
 
         UpdateContactFilter();
 
@@ -153,6 +153,7 @@ public class CatController : MonoBehaviour, IObjectWithSize
         }
 
         RuntimeManager.StudioSystem.setParameterByName("music_switch", _isBig ? 0 : 1);
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("music_switch", isBig ? 0 : 1);
 
         transform.DOScale(targetScale, scaleAnimationDuration).SetLink(gameObject);
         transform.DOMove(targetPosition, scaleAnimationDuration).SetLink(gameObject).OnComplete(() =>
@@ -193,13 +194,13 @@ public class CatController : MonoBehaviour, IObjectWithSize
 
     public void TryIncreasingSize(Vector3 position)
     {
-        if (!_isBig)
+        if (!isBig)
             ToggleSize(position);
     }
 
     public void TryDecreasingSize(Vector3 position)
     {
-        if (_isBig)
+        if (isBig)
             ToggleSize(position);
     }
 }
