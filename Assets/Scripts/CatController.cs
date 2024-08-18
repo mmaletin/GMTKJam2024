@@ -45,6 +45,8 @@ public class CatController : MonoBehaviour, IObjectWithSize
             _hasIgnoredDirection = true;
             _ignoredDirection = direction;
         }
+
+        UpdateMusic();
     }
 
     private void UpdateContactFilter()
@@ -152,13 +154,18 @@ public class CatController : MonoBehaviour, IObjectWithSize
             shrink.Play();
         }
 
-        RuntimeManager.StudioSystem.setParameterByName("music_switch", isBig ? 0 : 1);
+        UpdateMusic();
 
         transform.DOScale(targetScale, scaleAnimationDuration).SetLink(gameObject);
         transform.DOMove(targetPosition, scaleAnimationDuration).SetLink(gameObject).OnComplete(() =>
         {
             _isMoving = false;
         });
+    }
+
+    private void UpdateMusic()
+    {
+        RuntimeManager.StudioSystem.setParameterByName("music_switch", isBig ? 0 : 1);
     }
 
     private bool IsHoldingButton(Vector2 direction)
