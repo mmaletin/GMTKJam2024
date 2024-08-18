@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Rock : MonoBehaviour
+public class Rock : MonoBehaviour, IObjectWithSize
 {
-    public CatSize minimumSize;
+    public ObjectSize minimumSize;
     public Rigidbody2D body;
 
     public LayerMask collision;
@@ -13,6 +13,9 @@ public class Rock : MonoBehaviour
     private List<RaycastHit2D> _hits = new();
 
     private ContactFilter2D _contactFilter;
+
+    // Technically not the same thing, but whatever
+    public ObjectSize Size => minimumSize;
 
     private void Awake()
     {
@@ -24,7 +27,7 @@ public class Rock : MonoBehaviour
         };
     }
 
-    public bool CanBeMoved(CatSize catSize, Vector2 direction)
+    public bool CanBeMoved(ObjectSize catSize, Vector2 direction)
     {
         if (catSize < minimumSize)
             return false;

@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class CatController : MonoBehaviour
+public class CatController : MonoBehaviour, IObjectWithSize
 {
     public float scaleAnimationDuration = 0.5f;
     public float moveTime = 0.2f;
@@ -28,6 +28,8 @@ public class CatController : MonoBehaviour
 
     private bool _hasIgnoredDirection;
     private Vector2 _ignoredDirection;
+
+    public ObjectSize Size => _isBig ? ObjectSize.Big : ObjectSize.Small;
 
     private void Awake()
     {
@@ -99,7 +101,7 @@ public class CatController : MonoBehaviour
                     continue;
 
                 var rock = hit.transform.GetComponent<Rock>();
-                if (rock == null || !rock.CanBeMoved(_isBig ? CatSize.Big : CatSize.Small, direction))
+                if (rock == null || !rock.CanBeMoved(_isBig ? ObjectSize.Big : ObjectSize.Small, direction))
                     return;
 
                 rocks.Add(rock);
