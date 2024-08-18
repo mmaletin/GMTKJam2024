@@ -863,7 +863,7 @@ Tilemap:
   m_GameObject: {fileID: 1574538212}
   m_Enabled: 1
   m_Tiles:
-  - first: {x: 2, y: -5, z: 0}
+  - first: {x: 2, y: -4, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 8
@@ -873,7 +873,7 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: 3, y: -5, z: 0}
+  - first: {x: 3, y: -4, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 7
@@ -883,11 +883,11 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: 4, y: -5, z: 0}
+  - first: {x: 4, y: -4, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 9
-      m_TileSpriteIndex: 9
+      m_TileIndex: 6
+      m_TileSpriteIndex: 6
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -937,13 +937,13 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
   - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: 8d6ed2394bad46244934977842b1573d, type: 2}
+    m_Data: {fileID: 11400000, guid: 9149c88a472398d4d81273508ce84032, type: 2}
   - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: 570fe43170eae5845951b9512d7e1acb, type: 2}
-  - m_RefCount: 2
+    m_Data: {fileID: 11400000, guid: 4a44c3d7e57aa514c971edf2854bde6a, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: ea699eea7e76cc14db9c978ba18c52a9, type: 2}
+  - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: c80c8cc39e3770c4a97922fa4948fe69, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 02ea0c82d6f88a545bb96ef2dc6213d3, type: 2}
@@ -962,13 +962,13 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
   - m_RefCount: 1
-    m_Data: {fileID: 21300000, guid: 39d10b624f5af1f43b1b91383cc307c7, type: 3}
+    m_Data: {fileID: 21300000, guid: 5640efd83eed3744693cb323468323c7, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 21300000, guid: 14ea2581d48a56443961a65c82dcf6c8, type: 3}
-  - m_RefCount: 2
+    m_Data: {fileID: 21300000, guid: 91990e4497bc07942adc5ff72aaff3c1, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: 59414ed4b66696841ac645b14c835853, type: 3}
+  - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: a2e5f938fa60d7245be201b781e76863, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: 319f4501864bfba4eb4c1dedce7e3088, type: 3}
