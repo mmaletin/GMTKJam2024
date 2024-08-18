@@ -143,7 +143,7 @@ public class CatController : MonoBehaviour, IObjectWithSize
 
         UpdateContactFilter();
 
-        if (_isBig)
+        if (isBig)
         {
             stretch.Play();
         }
@@ -152,8 +152,7 @@ public class CatController : MonoBehaviour, IObjectWithSize
             shrink.Play();
         }
 
-        RuntimeManager.StudioSystem.setParameterByName("music_switch", _isBig ? 0 : 1);
-        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("music_switch", isBig ? 0 : 1);
+        RuntimeManager.StudioSystem.setParameterByName("music_switch", isBig ? 0 : 1);
 
         transform.DOScale(targetScale, scaleAnimationDuration).SetLink(gameObject);
         transform.DOMove(targetPosition, scaleAnimationDuration).SetLink(gameObject).OnComplete(() =>
