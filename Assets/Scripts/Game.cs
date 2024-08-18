@@ -81,7 +81,7 @@ public class Game : MonoBehaviour
         _currentLevel.onCompleted -= OnLevelCompleted;
 
         _lastCompletedLevel = _currentLevelIndex;
-        PlayerPrefs.SetInt(HighestCompletedLevelPrefsKey, _lastCompletedLevel);
+        PlayerPrefs.SetInt(LastCompletedLevelPrefsKey, _lastCompletedLevel);
         var highestCompletedLevel = PlayerPrefs.GetInt(HighestCompletedLevelPrefsKey, -1);
         if (_lastCompletedLevel > highestCompletedLevel)
             PlayerPrefs.SetInt(HighestCompletedLevelPrefsKey, _lastCompletedLevel);
