@@ -1,5 +1,6 @@
 using DG.Tweening;
 using FMODUnity;
+using NaughtyAttributes;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -10,6 +11,7 @@ public class CatController : MonoBehaviour, IObjectWithSize
 {
     public float scaleAnimationDuration = 0.5f;
     public float moveTime = 0.2f;
+    public float kittenMeowDelay = 0.7f;
     public Rigidbody2D body;
     public SpriteRenderer spriteRenderer;
 
@@ -23,6 +25,8 @@ public class CatController : MonoBehaviour, IObjectWithSize
 
     public LayerMask smallCatCollision;
     public LayerMask bigCatCollision;
+
+    [Layer] public int puddlesLayer;
 
     public bool isBig;
     private bool _isMoving;
@@ -48,6 +52,7 @@ public class CatController : MonoBehaviour, IObjectWithSize
     public StudioEventEmitter cat_footstep_big;
 
     public StudioEventEmitter small_cat_voice;
+    private float _lastKittenMeowTime;
 
     private void Awake()
     {
@@ -111,6 +116,12 @@ public class CatController : MonoBehaviour, IObjectWithSize
         {
             if (_hits.Where(hit => hit.distance < 1.01f).Count() == 1)
             {
+                if (_hits[0].transform.gameObject.layer == puddlesLayer && !isBig && Time.time > _lastKittenMeowTime + kittenMeowDelay)
+                {
+                    _lastKittenMeowTime = Time.time;
+                    small_cat_voice.Play();
+                }
+
                 var door = _hits[0].transform.GetComponentInParent<BreakableDoor>();
                 if (door != null && Size >= door.requiredCatSize)
                 {

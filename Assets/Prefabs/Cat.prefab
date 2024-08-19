@@ -54,6 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scaleAnimationDuration: 0.5
   moveTime: 0.2
+  kittenMeowDelay: 1.2
   body: {fileID: 2360443116775697900}
   spriteRenderer: {fileID: 6039152689084773746}
   smallRightSprite: {fileID: 21300000, guid: 2320a133a4c091948b09b5ce81c45aef, type: 3}
@@ -68,6 +69,7 @@ MonoBehaviour:
   bigCatCollision:
     serializedVersion: 2
     m_Bits: 1783
+  puddlesLayer: 8
   isBig: 1
   shrink: {fileID: 1373097422240036209}
   stretch: {fileID: 8050409456572801112}
