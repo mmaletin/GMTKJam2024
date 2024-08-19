@@ -227,10 +227,9 @@ public class CatController : MonoBehaviour, IObjectWithSize
         var h = Input.GetAxisRaw("Horizontal");
         var v = Input.GetAxisRaw("Vertical");
 
-        if (h != 0) return new Vector2(Mathf.Sign(h), 0);
-        if (v != 0) return new Vector2(0, Mathf.Sign(v));
+        if (h == 0 && v == 0) return Vector2.zero;
 
-        return Vector2.zero;
+        return Mathf.Abs(h) > Mathf.Abs(v) ? new Vector2(Mathf.Sign(h), 0) : new Vector2(0, Mathf.Sign(v));
     }
 
     public void ToggleSize(Vector3 position)
