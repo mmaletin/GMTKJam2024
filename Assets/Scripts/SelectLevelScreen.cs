@@ -28,8 +28,22 @@ public class SelectLevelScreen : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        var highestCompleted = game.GetHighestCompletedLevel();
+
+        if (_buttons.Count > 0)
+        {
+            for (int i = 0; i < _buttons.Count; i++)
+            {
+                _buttons[i].interactable = i <= highestCompleted + 1;
+            }
+        }
+    }
+
     private void OnLevelButtonClick(int index)
     {
-
+        game.StartCoroutine(game.LoadLevelWithIndexCoroutine(index));
+        gameObject.SetActive(false);
     }
 }

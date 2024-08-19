@@ -56,6 +56,18 @@ public class Game : MonoBehaviour
         }
     }
 
+    public IEnumerator LoadLevelWithIndexCoroutine(int index)
+    {
+        if (_currentLevel != null)
+        {
+            yield return UnloadLevel(_currentLevelIndex);
+        }
+
+        titleScreen.SetActive(false);
+
+        yield return LoadLevelAsync(index);
+    }
+
     private IEnumerator UnloadAndStartNewGame()
     {
         yield return UnloadLevel(_currentLevelIndex);
