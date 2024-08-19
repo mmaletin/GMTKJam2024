@@ -17,24 +17,35 @@ public class MuteSound : MonoBehaviour
 
         var soundEnabled = PlayerPrefs.GetInt(SoundPrefsKey, 1);
         if (soundEnabled < 1)
+        {
             MuteAudio();
+        }
+        else
+        {
+            ApplyButtonState();
+        }
     }
 
     public void MuteAudio()
     {
-        if (!_isMuted) 
+        if (!_isMuted)
         {
             _mute.setVolume(0);
             _isMuted = true;
-            PlayerPrefs.GetInt(SoundPrefsKey, 0);
+            PlayerPrefs.SetInt(SoundPrefsKey, 0);
         }
         else
         {
             _mute.setVolume(1);
             _isMuted = false;
-            PlayerPrefs.GetInt(SoundPrefsKey, 1);
+            PlayerPrefs.SetInt(SoundPrefsKey, 1);
         }
 
+        ApplyButtonState();
+    }
+
+    private void ApplyButtonState()
+    {
         soundOnButton.SetActive(_isMuted);
         soundOffButton.SetActive(!_isMuted);
     }
