@@ -2890,7 +2890,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1047583623}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43366ad5193aa4e4aab9bb6df6e1b323, type: 3}
   m_Name: 
@@ -3355,7 +3355,7 @@ MonoBehaviour:
   continueButton: {fileID: 1471224582}
   selectLevelButton: {fileID: 77946924}
   quitButton: {fileID: 1302973474}
-  levels: 020000000300000004000000050000000100000006000000
+  levels: 030000000400000005000000060000000200000007000000
   fanfare: {fileID: 593209641}
 --- !u!4 &1201823321
 Transform:
