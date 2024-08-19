@@ -1,3 +1,4 @@
+using FMODUnity;
 using NaughtyAttributes;
 using System.Collections;
 using UnityEngine;
@@ -23,6 +24,8 @@ public class Game : MonoBehaviour
     private Level _currentLevel;
 
     private int _lastCompletedLevel;
+
+    public StudioEventEmitter fanfare;
 
     private void Start()
     {
@@ -126,6 +129,7 @@ public class Game : MonoBehaviour
         else
         {
             Credits();
+            fanfare.Play();
             //loadscreen.gameObject.SetActive(false);
         }
     }
