@@ -108,20 +108,18 @@ public class CatController : MonoBehaviour, IObjectWithSize
         _lastDirection = direction;
         UpdateSprite();
 
-        body.Cast(direction, _contactFilter, _hits, float.MaxValue);
+        body.Cast(direction, _contactFilter, _hits, 1.01f);
 
-        var closest = _hits.Count > 0 ? _hits.Select(hit => hit.distance).Min() : float.MaxValue;
-
-        if (closest < 1.01f)
+        if (_hits.Count > 0)
         {
-            if (_hits.Where(hit => hit.distance < 1.01f).Count() == 1)
+            if (_hits.Where(h => h.transform.gameObject.layer == puddlesLayer).Any() && !isBig && Time.time > _lastKittenMeowTime + kittenMeowDelay)
             {
-                if (_hits[0].transform.gameObject.layer == puddlesLayer && !isBig && Time.time > _lastKittenMeowTime + kittenMeowDelay)
-                {
-                    _lastKittenMeowTime = Time.time;
-                    small_cat_voice.Play();
-                }
+                _lastKittenMeowTime = Time.time;
+                small_cat_voice.Play();
+            }
 
+            if (_hits.Count == 1)
+            {
                 var door = _hits[0].transform.GetComponentInParent<BreakableDoor>();
                 if (door != null && Size >= door.requiredCatSize)
                 {
@@ -135,9 +133,6 @@ public class CatController : MonoBehaviour, IObjectWithSize
 
             foreach (var hit in _hits)
             {
-                if (hit.distance > 1.01f)
-                    continue;
-
                 var rock = hit.transform.GetComponent<Rock>();
                 if (rock == null || !rock.CanBeMoved(isBig ? ObjectSize.Big : ObjectSize.Small, direction))
                     return;
