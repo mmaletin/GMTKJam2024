@@ -91,9 +91,7 @@ public class CatController : MonoBehaviour, IObjectWithSize
             if (direction != Vector2.zero)
             {
                 MoveInDirection(direction);
-                cat_footstep.Play();
-            }
-                          
+            }                          
         }
     }
 
@@ -140,6 +138,8 @@ public class CatController : MonoBehaviour, IObjectWithSize
         }
 
         _isMoving = true;
+        cat_footstep.Play();
+
         spriteRenderer.transform.DOScaleY(1.1f, moveTime * 0.5f).SetLink(spriteRenderer.gameObject).SetEase(Ease.InOutQuad);
         spriteRenderer.transform.DOScaleY(1, moveTime * 0.5f).SetLink(spriteRenderer.gameObject).SetEase(Ease.InOutQuad).SetDelay(moveTime * 0.5f);
         transform.DOMove(transform.position + (Vector3)direction, moveTime).SetLink(gameObject).OnComplete(() =>
