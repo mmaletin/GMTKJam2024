@@ -11,7 +11,7 @@ public class Game : MonoBehaviour
 
     public CanvasGroup loadscreen;
     public GameObject titleScreen;
-    public GameObject gameUI;
+    public GameObject[] gameUI;
     public GameObject creditsScreen;
     public CameraFollow cameraFollow;
 
@@ -28,6 +28,8 @@ public class Game : MonoBehaviour
     {
         UpdateContinueButton();
 
+        SetGameUIActive(false);
+
 #if UNITY_WEBGL
         quitButton.SetActive(false);
 #endif
@@ -41,18 +43,37 @@ public class Game : MonoBehaviour
 
     public void OnNewGameClicked()
     {
-        loadscreen.gameObject.SetActive(true);
+        //loadscreen.gameObject.SetActive(true);
         titleScreen.SetActive(false);
+        if (_currentLevel != null)
+        {
+            StartCoroutine(UnloadAndStartNewGame());
+        }
+        else
+        {
+            StartCoroutine(LoadLevelAsync(0));
+        }
+    }
 
-        StartCoroutine(LoadLevelAsync(0));
+    private IEnumerator UnloadAndStartNewGame()
+    {
+        yield return UnloadLevel(_currentLevelIndex);
+        yield return LoadLevelAsync(0);
     }
 
     public void OnContinueClicked()
     {
-        loadscreen.gameObject.SetActive(true);
+        //loadscreen.gameObject.SetActive(true);
         titleScreen.SetActive(false);
 
-        StartCoroutine(LoadLevelAsync(_lastCompletedLevel + 1));
+        if (_currentLevel != null)
+        {
+            SetGameUIActive(true);
+        }
+        else
+        {
+            StartCoroutine(LoadLevelAsync(_lastCompletedLevel + 1));
+        }
     }
 
     private IEnumerator LoadLevelAsync(int levelIndex)
@@ -73,8 +94,8 @@ public class Game : MonoBehaviour
         _currentLevel = GetComponentOnScene<Level>(levelScene);
         _currentLevel.onCompleted += OnLevelCompleted;
 
-        gameUI.gameObject.SetActive(true);
-        loadscreen.gameObject.SetActive(false);
+        SetGameUIActive(true);
+        //loadscreen.gameObject.SetActive(false);
     }
 
     private void OnLevelCompleted()
@@ -94,7 +115,7 @@ public class Game : MonoBehaviour
 
     private IEnumerator NextLevelCoroutine()
     {
-        loadscreen.gameObject.SetActive(true);
+        //loadscreen.gameObject.SetActive(true);
 
         yield return UnloadLevel(_currentLevelIndex);
 
@@ -105,7 +126,7 @@ public class Game : MonoBehaviour
         else
         {
             Credits();
-            loadscreen.gameObject.SetActive(false);
+            //loadscreen.gameObject.SetActive(false);
         }
     }
 
@@ -138,7 +159,7 @@ public class Game : MonoBehaviour
 
     private IEnumerator RestartCoroutine()
     {
-        loadscreen.gameObject.SetActive(true);
+        //loadscreen.gameObject.SetActive(true);
 
         yield return UnloadLevel(_currentLevelIndex);
         yield return LoadLevelAsync(_currentLevelIndex);
@@ -147,8 +168,14 @@ public class Game : MonoBehaviour
     public void Credits()
     {
         titleScreen.SetActive(true);
-        gameUI.SetActive(false);
+        SetGameUIActive(false);
         creditsScreen.SetActive(true);
+    }
+
+    public void ToMenu()
+    {
+        titleScreen.SetActive(true);
+        SetGameUIActive(false);
     }
 
     public void Quit()
@@ -160,5 +187,13 @@ public class Game : MonoBehaviour
         Application.Quit();
 #endif
 #endif
+    }
+
+    private void SetGameUIActive(bool value)
+    {
+        foreach (var go in gameUI)
+        {
+            go.SetActive(value);
+        }
     }
 }
