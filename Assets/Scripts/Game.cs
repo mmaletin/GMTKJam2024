@@ -12,6 +12,7 @@ public class Game : MonoBehaviour
     public CanvasGroup loadscreen;
     public GameObject titleScreen;
     public GameObject gameUI;
+    public GameObject creditsScreen;
     public CameraFollow cameraFollow;
 
     public GameObject continueButton;
@@ -103,9 +104,7 @@ public class Game : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("TODO: Game over, roll credits");
-            titleScreen.SetActive(true);
-            gameUI.gameObject.SetActive(false);
+            Credits();
             loadscreen.gameObject.SetActive(false);
         }
     }
@@ -143,6 +142,13 @@ public class Game : MonoBehaviour
 
         yield return UnloadLevel(_currentLevelIndex);
         yield return LoadLevelAsync(_currentLevelIndex);
+    }
+
+    public void Credits()
+    {
+        titleScreen.SetActive(true);
+        gameUI.SetActive(false);
+        creditsScreen.SetActive(true);
     }
 
     public void Quit()
