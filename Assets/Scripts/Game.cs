@@ -15,6 +15,7 @@ public class Game : MonoBehaviour
     public CameraFollow cameraFollow;
 
     public GameObject continueButton;
+    public GameObject selectLevelButton;
     public GameObject quitButton;
 
     [Scene] public int[] levels;
@@ -25,7 +26,7 @@ public class Game : MonoBehaviour
 
     private void Start()
     {
-        UpdateContinueButton();
+        UpdateButtons();
 
         SetGameUIActive(false);
 
@@ -34,10 +35,11 @@ public class Game : MonoBehaviour
 #endif
     }
 
-    private void UpdateContinueButton()
+    private void UpdateButtons()
     {
         _lastCompletedLevel = PlayerPrefs.GetInt(LastCompletedLevelPrefsKey, -1);
         continueButton.SetActive(_lastCompletedLevel >= 0 && _lastCompletedLevel < levels.Length - 1);
+        selectLevelButton.SetActive(GetHighestCompletedLevel() >= 0);
     }
 
     public void OnNewGameClicked()
@@ -103,11 +105,10 @@ public class Game : MonoBehaviour
 
         _lastCompletedLevel = _currentLevelIndex;
         PlayerPrefs.SetInt(LastCompletedLevelPrefsKey, _lastCompletedLevel);
-        var highestCompletedLevel = PlayerPrefs.GetInt(HighestCompletedLevelPrefsKey, -1);
-        if (_lastCompletedLevel > highestCompletedLevel)
+        if (_lastCompletedLevel > GetHighestCompletedLevel())
             PlayerPrefs.SetInt(HighestCompletedLevelPrefsKey, _lastCompletedLevel);
 
-        UpdateContinueButton();
+        UpdateButtons();
 
         StartCoroutine(NextLevelCoroutine());
     }
@@ -195,4 +196,6 @@ public class Game : MonoBehaviour
             go.SetActive(value);
         }
     }
+
+    public int GetHighestCompletedLevel() => PlayerPrefs.GetInt(HighestCompletedLevelPrefsKey, -1);
 }
