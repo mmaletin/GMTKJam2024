@@ -3355,7 +3355,7 @@ MonoBehaviour:
   continueButton: {fileID: 1471224582}
   selectLevelButton: {fileID: 77946924}
   quitButton: {fileID: 1302973474}
-  levels: 0a0000000600000007000000080000000900000002000000
+  levels: 020000000300000004000000050000000100000006000000
   fanfare: {fileID: 593209641}
 --- !u!4 &1201823321
 Transform:
