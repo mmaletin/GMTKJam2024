@@ -47,6 +47,8 @@ public class CatController : MonoBehaviour, IObjectWithSize
     public StudioEventEmitter cat_footstep_small;
     public StudioEventEmitter cat_footstep_big;
 
+    public StudioEventEmitter small_cat_voice;
+
     private void Awake()
     {
         UpdateContactFilter();

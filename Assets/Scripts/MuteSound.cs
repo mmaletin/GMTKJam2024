@@ -24,8 +24,6 @@ public class MuteSound : MonoBehaviour
         {
             _mute.setVolume(1);
             _isMuted = false;
-        }
-            
-
+        }           
     }
 }
