@@ -1,3 +1,4 @@
+using FMODUnity;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +18,11 @@ public class SizeChanger : MonoBehaviour
     public Sprite pressedSprite;
 
     private HashSet<Rigidbody2D> _pressingRigidbodies = new();
+
+    public StudioEventEmitter press_sound;
+    public StudioEventEmitter release_sound;
+
+    private bool _previousIsDown;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -42,12 +48,23 @@ public class SizeChanger : MonoBehaviour
                 default:
                     break;
             }
+
+            press_sound.Play();
+            _previousIsDown = true;
+
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         _pressingRigidbodies.Remove(collision.attachedRigidbody);
+
+        if (_previousIsDown)
+        {
+            release_sound.Play();
+            _previousIsDown = false;
+        }
+
         UpdateSprite();
     }
 

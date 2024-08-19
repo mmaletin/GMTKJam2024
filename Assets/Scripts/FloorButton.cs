@@ -1,3 +1,4 @@
+using FMODUnity;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,9 +10,14 @@ public class FloorButton : MonoBehaviour
     public Sprite normalSprite;
     public Sprite pressedSprite;
 
+    public StudioEventEmitter press_sound;
+    public StudioEventEmitter release_sound;
+
     public ObjectSize minimumSize;
 
     private HashSet<Rigidbody2D> _pressingRigidbodies = new();
+
+    private bool _previousIsDown;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -24,7 +30,12 @@ public class FloorButton : MonoBehaviour
             UpdateSprite();
 
             if (!wasPressed)
-                onButtonStateChanged.Invoke(true);            
+            {
+                press_sound.Play();
+                onButtonStateChanged.Invoke(true);
+                _previousIsDown = true;
+            }
+                         
         }
 
     }
@@ -34,7 +45,16 @@ public class FloorButton : MonoBehaviour
         _pressingRigidbodies.Remove(collision.attachedRigidbody);
         UpdateSprite();
         if (_pressingRigidbodies.Count == 0)
+        {          
             onButtonStateChanged.Invoke(false);
+
+            if (_previousIsDown)
+            {
+                release_sound.Play();
+                _previousIsDown = false;
+            }
+        }
+            
     }
 
     private void UpdateSprite()
