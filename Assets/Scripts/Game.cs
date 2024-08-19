@@ -11,7 +11,7 @@ public class Game : MonoBehaviour
 
     public CanvasGroup loadscreen;
     public GameObject titleScreen;
-    public GameObject gameUI;
+    public GameObject[] gameUI;
     public GameObject creditsScreen;
     public CameraFollow cameraFollow;
 
@@ -27,6 +27,8 @@ public class Game : MonoBehaviour
     private void Start()
     {
         UpdateContinueButton();
+
+        SetGameUIActive(false);
 
 #if UNITY_WEBGL
         quitButton.SetActive(false);
@@ -66,7 +68,7 @@ public class Game : MonoBehaviour
 
         if (_currentLevel != null)
         {
-            gameUI.SetActive(true);
+            SetGameUIActive(true);
         }
         else
         {
@@ -92,7 +94,7 @@ public class Game : MonoBehaviour
         _currentLevel = GetComponentOnScene<Level>(levelScene);
         _currentLevel.onCompleted += OnLevelCompleted;
 
-        gameUI.gameObject.SetActive(true);
+        SetGameUIActive(true);
         //loadscreen.gameObject.SetActive(false);
     }
 
@@ -166,14 +168,14 @@ public class Game : MonoBehaviour
     public void Credits()
     {
         titleScreen.SetActive(true);
-        gameUI.SetActive(false);
+        SetGameUIActive(false);
         creditsScreen.SetActive(true);
     }
 
     public void ToMenu()
     {
         titleScreen.SetActive(true);
-        gameUI.SetActive(false);
+        SetGameUIActive(false);
     }
 
     public void Quit()
@@ -185,5 +187,13 @@ public class Game : MonoBehaviour
         Application.Quit();
 #endif
 #endif
+    }
+
+    private void SetGameUIActive(bool value)
+    {
+        foreach (var go in gameUI)
+        {
+            go.SetActive(value);
+        }
     }
 }
