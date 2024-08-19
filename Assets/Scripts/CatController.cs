@@ -3,12 +3,13 @@ using FMODUnity;
 using NaughtyAttributes;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Pool;
 
 public class CatController : MonoBehaviour, IObjectWithSize
 {
+    private const float TouchControlsRadius = 100f;
+
     public float scaleAnimationDuration = 0.5f;
     public float moveTime = 0.2f;
     public float kittenMeowDelay = 0.7f;
@@ -54,8 +55,12 @@ public class CatController : MonoBehaviour, IObjectWithSize
     public StudioEventEmitter small_cat_voice;
     private float _lastKittenMeowTime;
 
+    private Vector2 _touchOrigin;
+
     private void Awake()
     {
+        Input.multiTouchEnabled = false;
+
         UpdateContactFilter();
 
         var direction = GetDirection();
@@ -201,6 +206,24 @@ public class CatController : MonoBehaviour, IObjectWithSize
 
     private Vector2 GetDirection()
     {
+        if (Input.touchCount > 0)
+        {
+            var touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
+            {
+                _touchOrigin = touch.position;
+            }
+            else
+            {
+                var delta = touch.position - _touchOrigin;
+
+                if (delta.sqrMagnitude > TouchControlsRadius * TouchControlsRadius)
+                {
+                    return Mathf.Abs(delta.x) > Mathf.Abs(delta.y) ? new Vector2(Mathf.Sign(delta.x), 0) : new Vector2(0, Mathf.Sign(delta.y));
+                }
+            }
+        }
+
         var h = Input.GetAxisRaw("Horizontal");
         var v = Input.GetAxisRaw("Vertical");
 
