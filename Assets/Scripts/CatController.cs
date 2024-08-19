@@ -117,20 +117,24 @@ public class CatController : MonoBehaviour, IObjectWithSize
 
         if (_hits.Count > 0)
         {
-            if (_hits.Where(h => h.transform.gameObject.layer == puddlesLayer).Any() && !isBig && Time.time > _lastKittenMeowTime + kittenMeowDelay)
-            {
-                _lastKittenMeowTime = Time.time;
-                small_cat_voice.Play();
-            }
+            if (_hits.Where(h => h.transform.gameObject.layer == puddlesLayer).Any())
+                TryKittenMeow();
 
             if (_hits.Count == 1)
             {
                 var door = _hits[0].transform.GetComponentInParent<BreakableDoor>();
-                if (door != null && Size >= door.requiredCatSize)
+                if (door != null)
                 {
-                    door.Smash();
-                    MoveInDirection(direction);
-                    return;
+                    if (Size >= door.requiredCatSize)
+                    {
+                        door.Smash();
+                        MoveInDirection(direction);
+                        return;
+                    }
+                    else
+                    {
+                        TryKittenMeow();
+                    }
                 }
             }
 
@@ -167,6 +171,15 @@ public class CatController : MonoBehaviour, IObjectWithSize
                 _isMoving = false;
             }
         });
+    }
+
+    private void TryKittenMeow()
+    {
+        if (!isBig && Time.time > _lastKittenMeowTime + kittenMeowDelay)
+        {
+            _lastKittenMeowTime = Time.time;
+            small_cat_voice.Play();
+        }
     }
 
     private void ToggleScaleAnimation()
