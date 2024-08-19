@@ -43,8 +43,20 @@ public class Game : MonoBehaviour
     {
         //loadscreen.gameObject.SetActive(true);
         titleScreen.SetActive(false);
+        if (_currentLevel != null)
+        {
+            StartCoroutine(UnloadAndStartNewGame());
+        }
+        else
+        {
+            StartCoroutine(LoadLevelAsync(0));
+        }
+    }
 
-        StartCoroutine(LoadLevelAsync(0));
+    private IEnumerator UnloadAndStartNewGame()
+    {
+        yield return UnloadLevel(_currentLevelIndex);
+        yield return LoadLevelAsync(0);
     }
 
     public void OnContinueClicked()
@@ -52,7 +64,14 @@ public class Game : MonoBehaviour
         //loadscreen.gameObject.SetActive(true);
         titleScreen.SetActive(false);
 
-        StartCoroutine(LoadLevelAsync(_lastCompletedLevel + 1));
+        if (_currentLevel != null)
+        {
+            gameUI.SetActive(true);
+        }
+        else
+        {
+            StartCoroutine(LoadLevelAsync(_lastCompletedLevel + 1));
+        }
     }
 
     private IEnumerator LoadLevelAsync(int levelIndex)
@@ -149,6 +168,12 @@ public class Game : MonoBehaviour
         titleScreen.SetActive(true);
         gameUI.SetActive(false);
         creditsScreen.SetActive(true);
+    }
+
+    public void ToMenu()
+    {
+        titleScreen.SetActive(true);
+        gameUI.SetActive(false);
     }
 
     public void Quit()
