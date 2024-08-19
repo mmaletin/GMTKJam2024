@@ -7,7 +7,6 @@ public class Game : MonoBehaviour
 {
     public const string HighestCompletedLevelPrefsKey = "ktb_highest_completed_level";
     public const string LastCompletedLevelPrefsKey = "ktb_last_completed_level";
-    public const string SoundPrefsKey = "ktb_sound";
 
     public CanvasGroup loadscreen;
     public GameObject titleScreen;
