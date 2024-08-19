@@ -41,7 +41,7 @@ public class Game : MonoBehaviour
 
     public void OnNewGameClicked()
     {
-        loadscreen.gameObject.SetActive(true);
+        //loadscreen.gameObject.SetActive(true);
         titleScreen.SetActive(false);
 
         StartCoroutine(LoadLevelAsync(0));
@@ -49,7 +49,7 @@ public class Game : MonoBehaviour
 
     public void OnContinueClicked()
     {
-        loadscreen.gameObject.SetActive(true);
+        //loadscreen.gameObject.SetActive(true);
         titleScreen.SetActive(false);
 
         StartCoroutine(LoadLevelAsync(_lastCompletedLevel + 1));
@@ -74,7 +74,7 @@ public class Game : MonoBehaviour
         _currentLevel.onCompleted += OnLevelCompleted;
 
         gameUI.gameObject.SetActive(true);
-        loadscreen.gameObject.SetActive(false);
+        //loadscreen.gameObject.SetActive(false);
     }
 
     private void OnLevelCompleted()
@@ -94,7 +94,7 @@ public class Game : MonoBehaviour
 
     private IEnumerator NextLevelCoroutine()
     {
-        loadscreen.gameObject.SetActive(true);
+        //loadscreen.gameObject.SetActive(true);
 
         yield return UnloadLevel(_currentLevelIndex);
 
@@ -105,7 +105,7 @@ public class Game : MonoBehaviour
         else
         {
             Credits();
-            loadscreen.gameObject.SetActive(false);
+            //loadscreen.gameObject.SetActive(false);
         }
     }
 
@@ -138,7 +138,7 @@ public class Game : MonoBehaviour
 
     private IEnumerator RestartCoroutine()
     {
-        loadscreen.gameObject.SetActive(true);
+        //loadscreen.gameObject.SetActive(true);
 
         yield return UnloadLevel(_currentLevelIndex);
         yield return LoadLevelAsync(_currentLevelIndex);
