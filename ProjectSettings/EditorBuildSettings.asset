@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelVika1.unity
     guid: 1d37bc0ff9d13c34286c9fc9a708ecee
+  - enabled: 1
+    path: Assets/Scenes/LevelMax6.unity
+    guid: 18014a562e9301a4691084beb1898458
   m_configObjects: {}
