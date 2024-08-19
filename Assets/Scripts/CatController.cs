@@ -44,7 +44,8 @@ public class CatController : MonoBehaviour, IObjectWithSize
     public StudioEventEmitter shrink;
     public StudioEventEmitter stretch;
 
-    public StudioEventEmitter cat_footstep;
+    public StudioEventEmitter cat_footstep_small;
+    public StudioEventEmitter cat_footstep_big;
 
     private void Awake()
     {
@@ -138,7 +139,7 @@ public class CatController : MonoBehaviour, IObjectWithSize
         }
 
         _isMoving = true;
-        cat_footstep.Play();
+        (isBig ? cat_footstep_big : cat_footstep_small).Play();
 
         spriteRenderer.transform.DOScaleY(1.1f, moveTime * 0.5f).SetLink(spriteRenderer.gameObject).SetEase(Ease.InOutQuad);
         spriteRenderer.transform.DOScaleY(1, moveTime * 0.5f).SetLink(spriteRenderer.gameObject).SetEase(Ease.InOutQuad).SetDelay(moveTime * 0.5f);

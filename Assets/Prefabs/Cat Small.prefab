@@ -60,26 +60,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cat Small
       objectReference: {fileID: 0}
-    - target: {fileID: 3936725513661811333, guid: e3c258ea31186fa498e6bde1fa387217, type: 3}
-      propertyPath: EventReference.Path
-      value: event:/SFX/small_cat_footstep
-      objectReference: {fileID: 0}
-    - target: {fileID: 3936725513661811333, guid: e3c258ea31186fa498e6bde1fa387217, type: 3}
-      propertyPath: EventReference.Guid.Data1
-      value: 1024882955
-      objectReference: {fileID: 0}
-    - target: {fileID: 3936725513661811333, guid: e3c258ea31186fa498e6bde1fa387217, type: 3}
-      propertyPath: EventReference.Guid.Data2
-      value: 1284863260
-      objectReference: {fileID: 0}
-    - target: {fileID: 3936725513661811333, guid: e3c258ea31186fa498e6bde1fa387217, type: 3}
-      propertyPath: EventReference.Guid.Data3
-      value: -87504198
-      objectReference: {fileID: 0}
-    - target: {fileID: 3936725513661811333, guid: e3c258ea31186fa498e6bde1fa387217, type: 3}
-      propertyPath: EventReference.Guid.Data4
-      value: -347425276
-      objectReference: {fileID: 0}
     - target: {fileID: 6039152689084773746, guid: e3c258ea31186fa498e6bde1fa387217, type: 3}
       propertyPath: m_Sprite
       value: 
