@@ -44,6 +44,8 @@ public class CatController : MonoBehaviour, IObjectWithSize
     public StudioEventEmitter shrink;
     public StudioEventEmitter stretch;
 
+    public StudioEventEmitter cat_footstep;
+
     private void Awake()
     {
         UpdateContactFilter();
@@ -87,7 +89,11 @@ public class CatController : MonoBehaviour, IObjectWithSize
         {
             var direction = GetDirection();
             if (direction != Vector2.zero)
+            {
                 MoveInDirection(direction);
+                cat_footstep.Play();
+            }
+                          
         }
     }
 
