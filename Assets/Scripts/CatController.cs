@@ -1,5 +1,6 @@
 using DG.Tweening;
 using FMODUnity;
+using NaughtyAttributes;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -10,6 +11,7 @@ public class CatController : MonoBehaviour, IObjectWithSize
 {
     public float scaleAnimationDuration = 0.5f;
     public float moveTime = 0.2f;
+    public float kittenMeowDelay = 0.7f;
     public Rigidbody2D body;
     public SpriteRenderer spriteRenderer;
 
@@ -23,6 +25,8 @@ public class CatController : MonoBehaviour, IObjectWithSize
 
     public LayerMask smallCatCollision;
     public LayerMask bigCatCollision;
+
+    [Layer] public int puddlesLayer;
 
     public bool isBig;
     private bool _isMoving;
@@ -46,6 +50,9 @@ public class CatController : MonoBehaviour, IObjectWithSize
 
     public StudioEventEmitter cat_footstep_small;
     public StudioEventEmitter cat_footstep_big;
+
+    public StudioEventEmitter small_cat_voice;
+    private float _lastKittenMeowTime;
 
     private void Awake()
     {
@@ -101,13 +108,17 @@ public class CatController : MonoBehaviour, IObjectWithSize
         _lastDirection = direction;
         UpdateSprite();
 
-        body.Cast(direction, _contactFilter, _hits, float.MaxValue);
+        body.Cast(direction, _contactFilter, _hits, 1.01f);
 
-        var closest = _hits.Count > 0 ? _hits.Select(hit => hit.distance).Min() : float.MaxValue;
-
-        if (closest < 1.01f)
+        if (_hits.Count > 0)
         {
-            if (_hits.Where(hit => hit.distance < 1.01f).Count() == 1)
+            if (_hits.Where(h => h.transform.gameObject.layer == puddlesLayer).Any() && !isBig && Time.time > _lastKittenMeowTime + kittenMeowDelay)
+            {
+                _lastKittenMeowTime = Time.time;
+                small_cat_voice.Play();
+            }
+
+            if (_hits.Count == 1)
             {
                 var door = _hits[0].transform.GetComponentInParent<BreakableDoor>();
                 if (door != null && Size >= door.requiredCatSize)
@@ -122,9 +133,6 @@ public class CatController : MonoBehaviour, IObjectWithSize
 
             foreach (var hit in _hits)
             {
-                if (hit.distance > 1.01f)
-                    continue;
-
                 var rock = hit.transform.GetComponent<Rock>();
                 if (rock == null || !rock.CanBeMoved(isBig ? ObjectSize.Big : ObjectSize.Small, direction))
                     return;
