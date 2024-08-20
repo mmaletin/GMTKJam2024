@@ -75,6 +75,7 @@ public class Game : MonoBehaviour
     {
         yield return UnloadLevel(_currentLevelIndex);
         yield return LoadLevelAsync(0);
+        UpdateButtons();
     }
 
     public void OnContinueClicked()
@@ -141,6 +142,7 @@ public class Game : MonoBehaviour
         else
         {
             Credits();
+            UpdateButtons();
             fanfare.Play();
             //loadscreen.gameObject.SetActive(false);
         }
