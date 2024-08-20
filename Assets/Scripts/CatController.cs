@@ -3,12 +3,13 @@ using FMODUnity;
 using NaughtyAttributes;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Pool;
 
 public class CatController : MonoBehaviour, IObjectWithSize
 {
+    private const float TouchControlsRadius = 100f;
+
     public float scaleAnimationDuration = 0.5f;
     public float moveTime = 0.2f;
     public float kittenMeowDelay = 0.7f;
@@ -54,8 +55,12 @@ public class CatController : MonoBehaviour, IObjectWithSize
     public StudioEventEmitter small_cat_voice;
     private float _lastKittenMeowTime;
 
+    private Vector2 _touchOrigin;
+
     private void Awake()
     {
+        Input.multiTouchEnabled = false;
+
         UpdateContactFilter();
 
         var direction = GetDirection();
@@ -112,20 +117,24 @@ public class CatController : MonoBehaviour, IObjectWithSize
 
         if (_hits.Count > 0)
         {
-            if (_hits.Where(h => h.transform.gameObject.layer == puddlesLayer).Any() && !isBig && Time.time > _lastKittenMeowTime + kittenMeowDelay)
-            {
-                _lastKittenMeowTime = Time.time;
-                small_cat_voice.Play();
-            }
+            if (_hits.Where(h => h.transform.gameObject.layer == puddlesLayer).Any())
+                TryKittenMeow();
 
             if (_hits.Count == 1)
             {
                 var door = _hits[0].transform.GetComponentInParent<BreakableDoor>();
-                if (door != null && Size >= door.requiredCatSize)
+                if (door != null)
                 {
-                    door.Smash();
-                    MoveInDirection(direction);
-                    return;
+                    if (Size >= door.requiredCatSize)
+                    {
+                        door.Smash();
+                        MoveInDirection(direction);
+                        return;
+                    }
+                    else
+                    {
+                        TryKittenMeow();
+                    }
                 }
             }
 
@@ -162,6 +171,15 @@ public class CatController : MonoBehaviour, IObjectWithSize
                 _isMoving = false;
             }
         });
+    }
+
+    private void TryKittenMeow()
+    {
+        if (!isBig && Time.time > _lastKittenMeowTime + kittenMeowDelay)
+        {
+            _lastKittenMeowTime = Time.time;
+            small_cat_voice.Play();
+        }
     }
 
     private void ToggleScaleAnimation()
@@ -201,13 +219,30 @@ public class CatController : MonoBehaviour, IObjectWithSize
 
     private Vector2 GetDirection()
     {
+        if (Input.touchCount > 0)
+        {
+            var touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
+            {
+                _touchOrigin = touch.position;
+            }
+            else
+            {
+                var delta = touch.position - _touchOrigin;
+
+                if (delta.sqrMagnitude > TouchControlsRadius * TouchControlsRadius)
+                {
+                    return Mathf.Abs(delta.x) > Mathf.Abs(delta.y) ? new Vector2(Mathf.Sign(delta.x), 0) : new Vector2(0, Mathf.Sign(delta.y));
+                }
+            }
+        }
+
         var h = Input.GetAxisRaw("Horizontal");
         var v = Input.GetAxisRaw("Vertical");
 
-        if (h != 0) return new Vector2(Mathf.Sign(h), 0);
-        if (v != 0) return new Vector2(0, Mathf.Sign(v));
+        if (h == 0 && v == 0) return Vector2.zero;
 
-        return Vector2.zero;
+        return Mathf.Abs(h) > Mathf.Abs(v) ? new Vector2(Mathf.Sign(h), 0) : new Vector2(0, Mathf.Sign(v));
     }
 
     public void ToggleSize(Vector3 position)
