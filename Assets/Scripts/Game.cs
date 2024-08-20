@@ -41,7 +41,7 @@ public class Game : MonoBehaviour
     private void UpdateButtons()
     {
         _lastCompletedLevel = PlayerPrefs.GetInt(LastCompletedLevelPrefsKey, -1);
-        continueButton.SetActive(_lastCompletedLevel >= 0 && _lastCompletedLevel < levels.Length - 1);
+        continueButton.SetActive((_lastCompletedLevel >= 0 && _lastCompletedLevel < levels.Length - 1) || _currentLevel != null);
         selectLevelButton.SetActive(GetHighestCompletedLevel() >= 0);
     }
 
